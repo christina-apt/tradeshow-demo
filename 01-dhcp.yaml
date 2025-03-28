@@ -1,0 +1,53 @@
+# Let NetworkManager manage all devices on this system
+network:
+  renderer: NetworkManager
+  ethernets:
+    ens5f0np0:
+      dhcp4: yes
+      optional: true
+    ens5f1np1:
+      dhcp4: yes
+      optional: true
+    ens5f2np2:
+      dhcp4: yes
+      optional: true
+    ens5f3np3:
+      dhcp4: yes
+      optional: true
+    ens6f0np0:
+      dhcp4: yes
+      optional: true
+    ens6f1np1:
+      dhcp4: yes
+      optional: true
+    ens6f2np2:
+      dhcp4: yes
+      optional: true
+    ens6f3np3:
+      dhcp4: yes
+      optional: true
+    enp5s0:
+      dhcp4: yes
+      optional: true
+    enp6s0:
+      dhcp4: yes
+      optional: true
+    enp7s0:
+      dhcp4: yes
+      optional: true
+    enp8s0:
+      dhcp4: yes
+      optional: true
+    enp9s0:
+      dhcp4: yes
+      optional: true
+    enp10s0:
+      dhcp4: yes
+      optional: true
+    enp12s0:
+      dhcp4: yes
+      optional: true
+    enp13s0:
+      dhcp4: yes
+      optional: true
+  version: 2

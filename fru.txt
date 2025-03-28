@@ -1,0 +1,40 @@
+Board Manufacturer
+Board Product Name
+Board Serial Number
+Board Part Number
+FRU File ID
+Additional Custom Mfg
+Additional Custom Mfg
+Manufacturer Name
+Product Name
+Product Part/Model Number
+Product Version
+Product Serial Number
+Asset Tag
+FRU File ID
+Manufacturer ID
+OCP NIC 3.0 FRU OEM Record Version ( v0.9 = 0x01, v1.1.0 - 0x02, v1.3.0 - 0x03
+Card Max power (Watts) in Main Power Mode
+Card Max power (Watts) in Aux Power Mode
+Hot Aisle Card Cooling Tier with Passive Cables or RJ45
+Cold Aisle Card Cooling Tier with Passive Cables or RJ45
+Card active/passive cooling
+Hot aisle standby airflow requirement with Active Cables
+Cold aisle standby airflow requirement with Active Cables
+UART Configuration 1 Secondary Connector.
+UART Configuration 2 Secondary Connector.
+USB Present Primary Connector
+Manageability Type
+FRU Write Protection Mechanism
+Programming Mode Power State supported
+Hot Aisle Card Cooling Tier with Active Cables
+Cold Aisle Card Cooling Tier with Active Cables
+Transceiver Reference Power Level
+Transceiver Reference Temperature Level
+Card Thermal Tier with Local Fan Fail
+Aux Power Supported Ports
+Hot aisle standby airflow requirement with Passive Cables or RJ45
+Cold aisle standby airflow requirement with Passive Cables or RJ45
+Reserved
+Number of Physical Controllers
+Controller 1 UDID

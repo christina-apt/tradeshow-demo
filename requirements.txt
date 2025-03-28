@@ -1,0 +1,8 @@
+sudo apt install python3-pip
+sudo apt install python3-tk
+sudo python3 -m pip install customtkinter
+sudo python3 -m pip install Pillow --force-reinstall
+sudo python3 -m pip install tabulate
+sudo apt install ethtool
+sudo apt install ipmitool
+sudo apt install iperf3

@@ -1,0 +1,222 @@
+{
+    "nic1" : {
+        "mac" : {
+            "item" : 3
+        },
+        "ethernet": {
+            "namespace1" : [{
+                "name" : "ns0",
+                "interface" : "ens6f0np0",
+                "ip" : "192.168.2.1"
+            },{
+                "name" : "ns1",
+                "interface" : "ens6f1np1",
+                "ip" : "192.168.2.2"
+            }
+            ],
+            "namespace2" : [{
+                "name" : "ns2",
+                "interface" : "ens6f2np2",
+                "ip" : "192.168.2.3"
+            },{
+                "name" : "ns3",
+                "interface" : "ens6f3np3",
+                "ip" : "192.168.2.4"
+            }]
+        },        
+        "pcie":{
+            "address" : ["16:00.0", "16:00.1","16:00.2","16:00.3"],
+            "testCondition" : [{
+                "speed" : "16",
+                "width" : "16"
+            },
+            {
+                "speed" : "16",
+                "width" : "16"
+            },
+            {
+                "speed" : "16",
+                "width" : "16"
+            },
+            {
+                "speed" : "16",
+                "width" : "16"
+            }]
+        },
+        "testCondition" : [{
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 25,
+            "percent" : 0.85
+        },
+        {
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 25,
+            "percent" : 0.85
+        }]
+    }, 
+    "nic2" : {
+        "mac" : {
+            "item" : 3
+        },
+        "ethernet": {
+            "namespace1" : [{
+                "name" : "ns4",
+                "interface" : "ens5f0np0",
+                "ip" : "192.168.1.1"
+            },{
+                "name" : "ns5",
+                "interface" : "ens5f1np1",
+                "ip" : "192.168.1.2"
+            }
+            ],
+            "namespace2" : [{
+                "name" : "ns6",
+                "interface" : "ens5f2np2",
+                "ip" : "192.168.1.3"
+            },{
+                "name" : "ns7",
+                "interface" : "ens5f3np3",
+                "ip" : "192.168.1.4"
+            }]
+        },        
+        "pcie":{
+            "address" : ["91:00.0", "91:00.1","91:00.2","91:00.3"],
+            "testCondition" : [{
+                "speed" : "8",
+                "width" : "8"
+            },
+            {
+                "speed" : "8",
+                "width" : "8"
+            },
+            {
+                "speed" : "8",
+                "width" : "8"
+            },
+            {
+                "speed" : "8",
+                "width" : "8"
+            }]
+        },
+        "testCondition" : [{
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 10,
+            "percent" : 0.9
+        },
+        {
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 10,
+            "percent" : 0.9
+        }]
+    },
+    "nic3" : {
+        "mac" : {
+            "item" : 3
+        },
+        "ethernet": {
+            "namespace1" : [{
+                "name" : "ns8",
+                "interface" : "enp5s0",
+                "ip" : "192.168.3.1"
+            },{
+                "name" : "ns9",
+                "interface" : "enp6s0",
+                "ip" : "192.168.3.2"
+            }
+            ],
+            "namespace2" : [{
+                "name" : "ns10",
+                "interface" : "enp7s0",
+                "ip" : "192.168.3.3"
+            },{
+                "name" : "ns11",
+                "interface" : "enp8s0",
+                "ip" : "192.168.3.4"
+            }],
+            "namespace3" : [{
+                "name" : "ns12",
+                "interface" : "enp9s0",
+                "ip" : "192.168.3.5"
+            },{
+                "name" : "ns13",
+                "interface" : "enp10s0",
+                "ip" : "192.168.3.6"
+            }],
+            "namespace4" : [{
+                "name" : "ns14",
+                "interface" : "enp12s0",
+                "ip" : "192.168.3.7"
+            },{
+                "name" : "ns15",
+                "interface" : "enp13s0",
+                "ip" : "192.168.3.8"
+            }]
+        },        
+        "pcie":{
+            "address" : ["05:00.0", "06:00.0","07:00.0","08:00.0","09:00.0","0a:00.0","0c:00.0","0d:00.0"],
+            "testCondition" : [{
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            },
+            {
+                "speed" : "5",
+                "width" : "1"
+            }]
+        },
+        "testCondition" : [{
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 2.5,
+            "percent" : 0.9
+        },
+        {
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 2.5,
+            "percent" : 0.9
+        },
+        {
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 2.5,
+            "percent" : 0.9
+        },
+        {
+            "time": "3",
+            "port": "5201",
+            "bandwidth" : 2.5,
+            "percent" : 0.9
+        }]
+    } 
+
+}   
+
+

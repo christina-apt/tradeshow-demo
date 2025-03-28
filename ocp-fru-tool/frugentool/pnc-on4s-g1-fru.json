@@ -1,0 +1,158 @@
+{
+	"board" : {
+		/* The date, if not specified, will be taken automatically from
+		 * the current system time. You may specify the `-u` option to
+		 * `frugen` in order to leave the date 'Unspecified' */
+		/* "date" : "1/10/2016 3:00:45",*/
+		"lang": 0,
+        /* Board Manufacturer */
+		"mfg" : "Portwell",
+        /* Board Product Name */
+		"pname" : {
+		    "type": "text",
+		    "data": "PNC-ON4S-G1"
+		},
+        /* Board Serial Number */
+		"serial" : {
+		    "type": "text",
+		    "data": "YYWWA00xxxx"
+		},
+        /* Board Part Number */
+		"pn" : {
+		    "type": "text",
+		    "data": "AB5-3346Z"
+		},
+        /* FRU File ID */
+		"file" : "",
+        /* Additional custom Mfg. Info */
+		"custom" : [
+			{ "type" : "text",   "data" : "HWZ00" },
+			{ "type" : "text",   "data" : "18-8I1001-Z002" }
+		]
+	},
+	"product" : {
+		"lang": 0,
+        /* Manufacturer Name */
+		"mfg" : "Portwell",
+        /* Product Name */
+		"pname" : {
+		    "type": "text",
+		    "data": "PNC-ON4S-G1"
+		},
+        /* Product Part/Model Number */
+		"pn" : {
+		    "type": "text",
+		    "data": "18-8I1001-Z002"
+		},
+        /* Product Version */
+		"ver" : {
+		    "type": "text",
+		    "data": "HWZ00"
+		},
+        /* Product Serial Number */
+		"serial" : {
+		    "type": "text",
+		    "data": "YYWWA00xxxx"
+		},
+        /* Asset Tag */
+		"atag" : {
+		    "type": "text",
+		    "data": ""
+		},
+        /* FRU File ID */
+		"file" : ""
+	},
+	"multirecord" : [
+        {
+            "type" : "oem",
+            "ocp" : [
+                /* Manufacturer ID */
+                { "offset" : "0", "length" : "3", "type" : "binary", "data" : "7FA600" },
+
+                /* OCP NIC 3.0 FRU OEM Record Version ( v0.9 = 0x01, v1.1.0 - 0x02, v1.3.0 - 0x03 */
+                { "offset" : "3", "length" : "1", "type" : "binary", "data" : "04" },
+
+                /* Card Max power (Watts)in Main Power Mode */
+                { "offset" : "4", "length" : "1", "type" : "binary", "data" : "0E" },
+
+                /* Card Max power (Watts)in Aux Power Mode */
+                { "offset" : "5", "length" : "1", "type" : "binary", "data" : "01" },
+
+                /* Hot Aisle Card Cooling Tier with Passive Cables or RJ45 */
+                { "offset" : "6", "length" : "1", "type" : "binary", "data" : "FF" },
+
+                /* Cold Aisle Card Cooling Tier with Passive Cables or RJ45 */
+                { "offset" : "7", "length" : "1", "type" : "binary", "data" : "FF" },
+
+                /* Card active/passive cooling */
+                { "offset" : "8", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* Hot aisle standby airflow requirement with Active Cables */
+                { "offset" : "9", "length" : "2", "type" : "binary", "data" : "FFFF" },
+
+                /* Cold aisle standby airflow requirement with Active Cables */
+                { "offset" : "11", "length" : "2", "type" : "binary", "data" : "FFFF" },
+
+                /* UART Configuration 1 – Secondary Connector. */
+                { "offset" : "13", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* UART Configuration 2 – Secondary Connector. */
+                { "offset" : "14", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* USB Present – Primary Connector */
+                { "offset" : "15", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* Manageability Type */
+                { "offset" : "16", "length" : "1", "type" : "binary", "data" : "03" },
+
+                /* FRU Write Protection Mechanism */
+                { "offset" : "17", "length" : "1", "type" : "binary", "data" : "01" },
+
+                /* Programming Mode Power State supported */
+                { "offset" : "18", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* Hot Aisle Card Cooling Tier with Active Cables */
+                { "offset" : "19", "length" : "1", "type" : "binary", "data" : "FF" },
+
+                /* Cold Aisle Card Cooling Tier with Active Cables */
+                { "offset" : "20", "length" : "1", "type" : "binary", "data" : "FF" },
+
+                /* Transceiver Reference Power Level */
+                { "offset" : "21", "length" : "1", "type" : "binary", "data" : "02" },
+
+                /* Transceiver Reference Temperature Level */
+                { "offset" : "22", "length" : "1", "type" : "binary", "data" : "46" },
+
+                /* Card Thermal Tier with Local Fan Fail */
+                { "offset" : "23", "length" : "1", "type" : "binary", "data" : "FF" },
+
+                /* Aux Power Supported Ports */
+                { "offset" : "24", "length" : "1", "type" : "binary", "data" : "00" },
+
+                /* Hot aisle standby airflow requirement with Passive Cables or RJ45 */
+                { "offset" : "25", "length" : "2", "type" : "binary", "data" : "FFFF" },
+
+                /* Cold aisle standby airflow requirement with Passive Cables or RJ45 */
+                { "offset" : "27", "length" : "2", "type" : "binary", "data" : "FFFF" },
+
+                /* Reserved */
+                { "offset" : "29", "length" : "2", "type" : "binary", "data" : "FFFF" },
+
+                /* Number of Physical Controllers */
+                { "offset" : "31", "length" : "1", "type" : "binary", "data" : "01" },
+
+                /* Controller 1 UDID */
+                /* Device Capabilities (8 bits) - MSB
+                   Version / Revision (8 bits)
+                   Vendor ID (16 bits)
+                   Device ID (16 bits)
+                   Interface (16 bits)
+                   Subsystem Vendor ID (16 bits)
+                   Subsystem Device ID (16 bits)
+                   Vender Specific ID (32 bits) - LSB
+                 */
+                { "offset" : "32", "length" : "16", "type" : "binary", "data" : "00000000000000000000000000000000" }
+            ]
+        }
+	]
+}
