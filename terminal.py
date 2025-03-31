@@ -55,16 +55,16 @@ canvas.pack(fill="both", expand="True")
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
 # Load the button images
-button1_image = Image.open("images/production_button.png").resize((400,150))
+button1_image = Image.open("images/production_button.png").resize((350,270))
 button1_photo = ImageTk.PhotoImage(button1_image)
 
-button2_image = Image.open("images/production_button.png").resize((400,150))
+button2_image = Image.open("images/bypass_button.png").resize((350,270))
 button2_photo = ImageTk.PhotoImage(button2_image)
 
-button3_image = Image.open("images/production_button.png").resize((400,150))
+button3_image = Image.open("images/bmc_button.png").resize((350,270))
 button3_photo = ImageTk.PhotoImage(button3_image)
 
-button4_image = Image.open("images/production_button.png").resize((400,150))
+button4_image = Image.open("images/pfr_button.png").resize((350,270))
 button4_photo = ImageTk.PhotoImage(button4_image)
 
 # Create buttons with the images
