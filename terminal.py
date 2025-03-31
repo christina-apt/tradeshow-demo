@@ -2,10 +2,10 @@ import tkinter as tk
 import platform
 from tkinter import Toplevel, ttk
 from PIL import Image, ImageTk
+from image_carousel import ImageCarousel
 import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
-#from openbmc import OpenBMC
 
 def on_button1_click():
     new_window = Toplevel(root)
@@ -21,7 +21,7 @@ def on_button3_click():
 
 def on_button4_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background4.jpg")
+    app = ImageCarousel(new_window, "image-carousel")
 
 # Create the main window
 root = tk.Tk()
