@@ -33,8 +33,8 @@ root = tk.Tk()
 #width = root.winfo_screenwidth() 
 #height = root.winfo_screenheight()
 #setting tkinter window size
-width=1600
-height=900
+width=1850
+height=1016
 root.geometry("%dx%d" % (width, height))
 root.title("American Portwell Technology | RSAC 2025")
 
@@ -45,7 +45,7 @@ style.element_create("RoundedFrame","image", borderImage,border=16, sticky="nsew
 style.layout("RoundedFrame",[("RoundedFrame", {"sticky": "nsew"})])
 
 # Load the background image
-bg_image = Image.open("images/page1.png")
+bg_image = Image.open("images/page1-2.png")
 bg_image.resize((width,height))
 bg_photo = ImageTk.PhotoImage(bg_image)
 
