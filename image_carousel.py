@@ -28,7 +28,7 @@ class ImageCarousel:
          for file in self.image_files:
             image_path = os.path.join(self.image_folder, file)
             image = Image.open(image_path)
-            image.thumbnail((self.canvas_width, self.canvas_height))
+            image = image.resize((1600, 900), Image.Resampling.LANCZOS)
             photo = ImageTk.PhotoImage(image)
             self.image_labels.append(photo)
 
