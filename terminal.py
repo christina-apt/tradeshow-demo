@@ -34,8 +34,8 @@ root = tk.Tk()
 #width = root.winfo_screenwidth() 
 #height = root.winfo_screenheight()
 #setting tkinter window size
-width=1600
-height=900
+width=1920
+height=1016
 root.geometry("%dx%d" % (width, height))
 root.title("American Portwell Technology | RSAC 2025")
 
@@ -46,9 +46,9 @@ style.element_create("RoundedFrame","image", borderImage,border=16, sticky="nsew
 style.layout("RoundedFrame",[("RoundedFrame", {"sticky": "nsew"})])
 
 # Load the background image
-bg_image = Image.open("1.png")
-bg_image.resize((width,height))
-bg_photo = ImageTk.PhotoImage(bg_image)
+bg_image = Image.open("images/page1-2.png")
+resized_bg_image = bg_image.resize((width,height))
+bg_photo = ImageTk.PhotoImage(resized_bg_image)
 
 # Create a canvas to place the background image
 canvas = tk.Canvas(root, width=width, height=height)
@@ -56,16 +56,16 @@ canvas.pack(fill="both", expand="True")
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
 # Load the button images
-button1_image = Image.open("ducks.jpg").resize((400,150))
+button1_image = Image.open("images/production_button.png").resize((350,270))
 button1_photo = ImageTk.PhotoImage(button1_image)
 
-button2_image = Image.open("ducks.jpg").resize((400,150))
+button2_image = Image.open("images/bypass_button.png").resize((350,270))
 button2_photo = ImageTk.PhotoImage(button2_image)
 
-button3_image = Image.open("ducks.jpg").resize((400,150))
+button3_image = Image.open("images/bmc_button.png").resize((350,270))
 button3_photo = ImageTk.PhotoImage(button3_image)
 
-button4_image = Image.open("ducks.jpg").resize((400,150))
+button4_image = Image.open("images/pfr_button.png").resize((350,270))
 button4_photo = ImageTk.PhotoImage(button4_image)
 
 # Create buttons with the images
@@ -75,10 +75,10 @@ button3 = tk.Button(root, image=button3_photo, command=on_button3_click, highlig
 button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 
 # Place the buttons on the canvas
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-150, anchor="center", window=button1)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-150, anchor="center", window=button2)
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-350, anchor="center", window=button3)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-350, anchor="center", window=button4)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-550, anchor="center", window=button1)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-550, anchor="center", window=button2)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-250, anchor="center", window=button3)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-250, anchor="center", window=button4)
 
 # Start the Tkinter event loop
 root.mainloop()
