@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
+from bypass_test_new import Bypass5000App
 #from openbmc import OpenBMC
 
 def on_button1_click():
@@ -21,7 +22,7 @@ def on_button3_click():
 
 def on_button4_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background4.jpg")
+    app = Bypass5000App(new_window, "background4.jpg")
 
 # Create the main window
 root = tk.Tk()
@@ -55,16 +56,16 @@ canvas.pack(fill="both", expand="True")
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
 # Load the button images
-button1_image = Image.open("ducks.jpg").resize((400,150))
+button1_image = Image.open("ducks.jpg").resize((400,150)) # Production Test
 button1_photo = ImageTk.PhotoImage(button1_image)
 
-button2_image = Image.open("ducks.jpg").resize((400,150))
+button2_image = Image.open("ducks.jpg").resize((400,150)) 
 button2_photo = ImageTk.PhotoImage(button2_image)
 
 button3_image = Image.open("ducks.jpg").resize((400,150))
 button3_photo = ImageTk.PhotoImage(button3_image)
 
-button4_image = Image.open("ducks.jpg").resize((400,150))
+button4_image = Image.open("ducks.jpg").resize((400,150)) # Network Test
 button4_photo = ImageTk.PhotoImage(button4_image)
 
 # Create buttons with the images
