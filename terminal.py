@@ -74,10 +74,10 @@ button3 = tk.Button(root, image=button3_photo, command=on_button3_click, highlig
 button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 
 # Place the buttons on the canvas
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-150, anchor="center", window=button1)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-150, anchor="center", window=button2)
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-350, anchor="center", window=button3)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-350, anchor="center", window=button4)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-550, anchor="center", window=button1)
+canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-550, anchor="center", window=button2)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-250, anchor="center", window=button3)
+canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-250, anchor="center", window=button4)
 
 # Start the Tkinter event loop
 root.mainloop()
