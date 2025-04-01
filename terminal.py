@@ -3,6 +3,7 @@ import platform
 from tkinter import Toplevel, ttk
 from PIL import Image, ImageTk
 from image_carousel import ImageCarousel
+from openbmc import OpenBMC
 import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
