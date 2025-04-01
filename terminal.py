@@ -46,8 +46,8 @@ style.layout("RoundedFrame",[("RoundedFrame", {"sticky": "nsew"})])
 
 # Load the background image
 bg_image = Image.open("images/page1-2.png")
-bg_image.resize((width,height))
-bg_photo = ImageTk.PhotoImage(bg_image)
+resized_bg_image = bg_image.resize((width,height))
+bg_photo = ImageTk.PhotoImage(resized_bg_image)
 
 # Create a canvas to place the background image
 canvas = tk.Canvas(root, width=width, height=height)
