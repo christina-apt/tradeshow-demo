@@ -3,13 +3,14 @@ import platform
 from tkinter import Toplevel, ttk
 from PIL import Image, ImageTk
 from image_carousel import ImageCarousel
+from openbmc import OpenBMC
 import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background1.jpg")
+    app = OpenBMC(new_window, "background1.jpg")
 
 def on_button2_click():
     new_window = Toplevel(root)
@@ -33,7 +34,7 @@ root = tk.Tk()
 #width = root.winfo_screenwidth() 
 #height = root.winfo_screenheight()
 #setting tkinter window size
-width=1850
+width=1920
 height=1016
 root.geometry("%dx%d" % (width, height))
 root.title("American Portwell Technology | RSAC 2025")
@@ -74,10 +75,10 @@ button3 = tk.Button(root, image=button3_photo, command=on_button3_click, highlig
 button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 
 # Place the buttons on the canvas
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-150, anchor="center", window=button1)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-150, anchor="center", window=button2)
-canvas.create_window(bg_photo.width()//2 + 15, bg_photo.height()-350, anchor="center", window=button3)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-350, anchor="center", window=button4)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-550, anchor="center", window=button1)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-550, anchor="center", window=button2)
+canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-250, anchor="center", window=button3)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-250, anchor="center", window=button4)
 
 # Start the Tkinter event loop
 root.mainloop()
