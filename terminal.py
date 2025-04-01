@@ -33,7 +33,7 @@ root = tk.Tk()
 #width = root.winfo_screenwidth() 
 #height = root.winfo_screenheight()
 #setting tkinter window size
-width=1850
+width=1920
 height=1016
 root.geometry("%dx%d" % (width, height))
 root.title("American Portwell Technology | RSAC 2025")
@@ -75,9 +75,9 @@ button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlig
 
 # Place the buttons on the canvas
 canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-550, anchor="center", window=button1)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-550, anchor="center", window=button2)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-550, anchor="center", window=button2)
 canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-250, anchor="center", window=button3)
-canvas.create_window(bg_photo.width()//2 + 465, bg_photo.height()-250, anchor="center", window=button4)
+canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-250, anchor="center", window=button4)
 
 # Start the Tkinter event loop
 root.mainloop()
