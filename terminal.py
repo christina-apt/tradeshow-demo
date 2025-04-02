@@ -12,15 +12,15 @@ from production_demo import ProductionDemo
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = OpenBMC(new_window)
+    app = ProductionDemo(new_window, "background2.jpg")
 
 def on_button2_click():
     new_window = Toplevel(root)
-    app = ProductionDemo(new_window, "background2.jpg")
+    app = Bypass5000App(new_window, "background3.jpg")
 
 def on_button3_click():
     new_window = Toplevel(root)
-    app = Bypass5000App(new_window, "background3.jpg")
+    app = OpenBMC(new_window)
 
 def on_button4_click():
     new_window = Toplevel(root)
