@@ -11,5 +11,5 @@ class OpenBMC(tk.Frame):
     def load_browser(self):
         # Create an HtmlFrame to load the web page
         frame = tkinterweb.HtmlFrame(self.master)
-        frame.load_website("https://google.com")  # Load the desired URL
+        frame.load_website("https://200.200.200.102")  # Load the desired URL
         frame.pack(fill="both", expand=True)  # Expand the frame to fill the window
