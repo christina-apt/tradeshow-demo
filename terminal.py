@@ -10,7 +10,7 @@ from bypass_test import BypassTest
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = OpenBMC(new_window, "background1.jpg")
+    app = BypassTest(new_window, "background1.jpg")
 
 def on_button2_click():
     new_window = Toplevel(root)
@@ -18,7 +18,7 @@ def on_button2_click():
 
 def on_button3_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background3.jpg")
+    app = OpenBMC(new_window, "background3.jpg")
 
 def on_button4_click():
     new_window = Toplevel(root)
