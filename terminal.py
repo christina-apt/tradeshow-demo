@@ -7,6 +7,8 @@ from openbmc import OpenBMC
 import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
+from bypass_test_new import Bypass5000App
+from production_demo import ProductionDemo
 
 def on_button1_click():
     new_window = Toplevel(root)
@@ -14,11 +16,11 @@ def on_button1_click():
 
 def on_button2_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background2.jpg")
+    app = ProductionDemo(new_window, "background2.jpg")
 
 def on_button3_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background3.jpg")
+    app = Bypass5000App(new_window, "background3.jpg")
 
 def on_button4_click():
     new_window = Toplevel(root)
@@ -56,6 +58,7 @@ canvas.pack(fill="both", expand="True")
 canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
 # Load the button images
+
 button1_image = Image.open("images/production_button.png").resize((350,270))
 button1_photo = ImageTk.PhotoImage(button1_image)
 
