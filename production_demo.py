@@ -11,7 +11,7 @@ from datetime import datetime
 from tabulate import tabulate
 import json
 
-class Bypass5000App(Frame):
+class ProductionDemo(Frame):
     
     def __init__(self, master, background="background1.jpg"):
 
@@ -42,12 +42,11 @@ class Bypass5000App(Frame):
         height=900 #root.winfo_screenheight()
         #setting tkinter window size
         self.root.geometry("%dx%d" % (width, height))
-        self.root.title("APT OCP NIC 3.0 Network Test")
+        self.root.title("Production Demo")
 
         # Load the icon image
         icon = tk.PhotoImage(file="portwell_logo.png")
         self.root.iconphoto(False, icon)
-
 
         # Load the background image
         bg_image = Image.open(background)
@@ -64,14 +63,8 @@ class Bypass5000App(Frame):
         self.progress_bar_label = tk.Label(canvas, image=self.progress_bar, bd=0)
         self.progress_bar_label.pack(side=tk.BOTTOM, pady=(0,15))
 
-        # Load Pictures 
-        # need to change to real pnc card picture
-        self.img1 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))
-        self.img2 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))
-        self.img3 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))    
-
         # Title
-        self.text_label = tk.Label(canvas, text="Bypass Demo", 
+        self.text_label = tk.Label(canvas, text="Production Demo", 
                       font=("Arial", 14, "bold"), 
                       bg="royalblue", fg="white", 
                       padx=20, pady=10, 
@@ -80,56 +73,17 @@ class Bypass5000App(Frame):
         # Put the Title in the middle
         self.text_label.pack(pady=20)
 
-        # create Frame to store 3 terminal
-        self.frames = []
-        self.text_boxes = []
+        # frame 
+        self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
+        self.frame1.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
+        self.text_box = tk.Text(self.frame1, borderwidth=0, highlightthickness=0, wrap="word",
+                        width=150, height=60, font=("Courier", 12))
+        self.text_box.pack(fill="both", padx=10, pady=10)
+        self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
 
-        # termimal content
-        self.processes = [] 
-
-        for i in range(3):
-            frame = ttk.Frame(canvas, style="RoundedFrame", padding=10)
-            frame.pack(side=tk.LEFT, pady=(300, 15), padx=(25, 0) if i < 2 else (25, 25))
-            self.frames.append(frame)
-            
-            text_box = tk.Text(frame, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-            text_box.config(state=tk.DISABLED)
-            text_box.pack(fill="both", padx=10, pady=10)
-            text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-            self.text_boxes.append(text_box)
-
-        # # frame 1 
-        # self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame1.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
-        # self.text_box = tk.Text(self.frame1, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
-        # # frame 2
-        # self.frame2 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame2.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
-        # self.text_box = tk.Text(self.frame2, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
-        # # frame 3
-        # self.frame3 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame3.pack(side=tk.LEFT,pady=(300,15), padx=(25,25))
-        # self.text_box = tk.Text(self.frame3, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
-
-        # Button 1, 2, 3
-        self.button1 = Button(canvas, image=self.img1, command=lambda: self.run_command(0), borderwidth=0)
-        self.button1.place(x=250, y=250) 
-
-        self.button2 = Button(canvas, image=self.img2, command=lambda: self.run_command(1), borderwidth=0)
-        self.button2.place(x=750, y=250) 
-
-        self.button3 = Button(canvas, image=self.img3, command=lambda: self.run_command(2), borderwidth=0)
-        self.button3.place(x=1250, y=250) 
-        
+        # auto update
+        self.root.bind("<FocusIn>", lambda event: self.update_terminal()) 
+        self.update_terminal()
         # text status
         # self.left_frame = ttk.Frame(canvas,style="RoundedFrame", padding=10)
         # self.left_frame.pack(side=tk.TOP, anchor="ne", pady=(30,0), padx=(0,40))
@@ -166,44 +120,42 @@ class Bypass5000App(Frame):
 
         self.tests = [(0, self.delete_menu),(30000,self.run_pcie), (25000,self.run_ping), (50000,self.run_iperf), (10000,self.run_read_fru), (0,self.quit)]
 
-        # self.root.after(100, self.run_initial_commands)
-
         # Run the Tkinter event loop
         self.root.mainloop()
-    
-    def run_command(self, index):
-        self.start_terminal(index, "ls")
-        # self.start_terminal(index, "echo 'Hello, Terminal!'")
 
-    # def run_initial_commands(self):
-    #     for i in range(3):
-    #         self.run_command(i)
+    def update_terminal(self):
+        print("pass update terminal")
+        try:
+            with open("production_test_results.json", "r") as f:
+                data = json.load(f)
 
+            self.text_box.config(state=tk.NORMAL)
+            self.text_box.delete(1.0, tk.END) 
 
-    def start_terminal(self, index, command):
-        def run():
-            print(f"Running command: {command} in terminal {index}")
-            process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE, text=True)
+            for key, value in data["metadata"].items():
+                self.text_box.insert(tk.END, f"{key}: {value}\n", "bold")
 
-            stdout, stderr = process.communicate()
+            self.text_box.insert(tk.END, "\nAUTOMATED TEST RESULTS\n")
+            self.text_box.insert(tk.END, "-------------------------------------\n")
 
-            self.text_boxes[index].config(state=tk.NORMAL)  # allow to write
-            self.text_boxes[index].delete(1.0, tk.END)  # Delete previous contents
-            self.text_boxes[index].insert(tk.END, stdout)
-            self.text_boxes[index].see(tk.END)  # rolling to the bottom
-            self.text_boxes[index].config(state=tk.DISABLED) # set the writing to disable
-            
-            if stderr:
-                print(f"Error in terminal {index}: {stderr}")
+            # show the test result
+            for item in data["results"]:
+                color = "green" if item["result"] == "PASS" else "red"
+                self.text_box.insert(tk.END, f"{item['name']:30} {item['result']}\n", color)
 
-        thread = threading.Thread(target=run, daemon=True)
-        thread.start()
+            self.text_box.insert(tk.END, "\nTOTAL RESULT: " + data["total_result"], "red" if data["total_result"] == "FAILED" else "green")
 
-    def action1(self):
-        print("Button 1 clicked!")
-    
-    def action2(self):
-        print("Button 2 clicked!")
+            # set the color
+            self.text_box.tag_configure("bold", font=("Courier", 12, "bold"))
+            self.text_box.tag_configure("red", foreground="red")
+            self.text_box.tag_configure("green", foreground="green")
 
-    def action3(self):
-        print("Button 3 clicked!")
+            self.text_box.config(state=tk.DISABLED)
+
+        except FileNotFoundError:
+            self.text_box.config(state=tk.NORMAL)
+            self.text_box.delete(1.0, tk.END)
+            self.text_box.insert(tk.END, "Waiting for test results...\n")
+            self.text_box.config(state=tk.DISABLED)
+
+        self.root.after(5000, self.update_terminal)

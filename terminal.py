@@ -6,11 +6,12 @@ import testgui
 from testgui import TestGUI
 from bypass_test import BypassTest
 from bypass_test_new import Bypass5000App
+from production_demo import ProductionDemo
 #from openbmc import OpenBMC
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = BypassTest(new_window, "background1.jpg")
+    app = ProductionDemo(new_window, "background1.jpg")
 
 def on_button2_click():
     new_window = Toplevel(root)
