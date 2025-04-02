@@ -75,9 +75,9 @@ class ProductionDemo(Frame):
 
         # frame 
         self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        self.frame1.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
+        self.frame1.pack(side=tk.LEFT,pady=(200,15), padx=(25,0))
         self.text_box = tk.Text(self.frame1, borderwidth=0, highlightthickness=0, wrap="word",
-                        width=150, height=60, font=("Courier", 12))
+                        width=150, height=130, font=("Courier", 12))
         self.text_box.pack(fill="both", padx=10, pady=10)
         self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
 
@@ -135,14 +135,16 @@ class ProductionDemo(Frame):
             for key, value in data["metadata"].items():
                 self.text_box.insert(tk.END, f"{key}: {value}\n", "bold")
 
-            self.text_box.insert(tk.END, "\nAUTOMATED TEST RESULTS\n")
-            self.text_box.insert(tk.END, "-------------------------------------\n")
-
+            self.text_box.tag_configure("blue", foreground="blue")
+            self.text_box.insert(tk.END, "---------------------------------AUTOMATED TEST RESULTS--------------------------------\n")
+            self.text_box.insert(tk.END, "<NAME>                                                     <RESULT>\n", "blue")
+            
             # show the test result
             for item in data["results"]:
                 color = "green" if item["result"] == "PASS" else "red"
-                self.text_box.insert(tk.END, f"{item['name']:30} {item['result']}\n", color)
+                self.text_box.insert(tk.END, f"{item['name']:60} {item['result']}\n", color)
 
+            self.text_box.insert(tk.END, "---------------------------------------------------------------------------------------\n")
             self.text_box.insert(tk.END, "\nTOTAL RESULT: " + data["total_result"], "red" if data["total_result"] == "FAILED" else "green")
 
             # set the color
