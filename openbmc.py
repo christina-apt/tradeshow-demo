@@ -5,5 +5,5 @@ class OpenBMC:
         self.open_browser()
 
     def open_browser(self):
-        url = "http://root:Apt44200@200.200.200.15"
+        url = "http://root:Apt44200@200.200.200.102"
         webbrowser.open_new(url)
