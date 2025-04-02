@@ -10,7 +10,7 @@ from bypass_test import BypassTest
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = OpenBMC()
+    app = OpenBMC(new_window)
 
 def on_button2_click():
     new_window = Toplevel(root)

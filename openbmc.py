@@ -1,7 +1,9 @@
 import webbrowser
 
 class OpenBMC:
-    def __init__(self):
+    def __init__(self, master):
+        self.master = master
+        self.master.withdraw()
         self.open_browser()
 
     def open_browser(self):
