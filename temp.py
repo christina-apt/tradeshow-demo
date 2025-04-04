@@ -19,19 +19,12 @@ class Bypass5000App(Frame):
         with open('./global.json') as f:
             self.globalVariable = json.load(f)
 
-        match background:
-            case "page 2.png":
-                self.globalVariable = self.globalVariable['nic1']
-                self.slot = "0x00"
-                self.fru = "values1.txt"
-            case "page 3.png":
-                self.globalVariable = self.globalVariable['nic2']
-                self.slot = "0x01"
-                self.fru = "values2.txt"
-            case "page 4.png":
-                self.globalVariable = self.globalVariable['nic3']  
-                self.slot = "0x02"
-                self.fru = "values3.txt"     
+        self.current_bg = background
+        self.bg_images = {
+            "page1": "background1.jpg",
+            "page2": "page 2.png",
+            "page3": "page 3.png"
+        }
 
         self.is_windows = platform.system() == 'Windows'
         # Create the main window
@@ -59,17 +52,6 @@ class Bypass5000App(Frame):
         canvas.pack(fill="both", expand=True)
         canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
-        self.progress_bar = PhotoImage(file="test_0.png")
-
-        self.progress_bar_label = tk.Label(canvas, image=self.progress_bar, bd=0)
-        self.progress_bar_label.pack(side=tk.BOTTOM, pady=(0,15))
-
-        # Load Pictures 
-        # need to change to real pnc card picture
-        self.img1 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))
-        self.img2 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))
-        self.img3 = ImageTk.PhotoImage(Image.open("ducks.jpg").resize((100, 80)))    
-
         # Title
         self.text_label = tk.Label(canvas, text="Bypass Demo", 
                       font=("Arial", 14, "bold"), 
@@ -79,56 +61,39 @@ class Bypass5000App(Frame):
 
         # Put the Title in the middle
         self.text_label.pack(pady=20)
-
-        # create Frame to store 3 terminal
-        self.frames = []
-        self.text_boxes = []
-
-        # termimal content
-        self.processes = [] 
-
-        for i in range(3):
-            frame = ttk.Frame(canvas, style="RoundedFrame", padding=10)
-            frame.pack(side=tk.LEFT, pady=(300, 15), padx=(25, 0) if i < 2 else (25, 25))
-            self.frames.append(frame)
-            
-            text_box = tk.Text(frame, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-            text_box.config(state=tk.DISABLED)
-            text_box.pack(fill="both", padx=10, pady=10)
-            text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-            self.text_boxes.append(text_box)
-
-        # # frame 1 
-        # self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame1.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
-        # self.text_box = tk.Text(self.frame1, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
-        # # frame 2
-        # self.frame2 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame2.pack(side=tk.LEFT,pady=(300,15), padx=(25,0))
-        # self.text_box = tk.Text(self.frame2, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
-        # # frame 3
-        # self.frame3 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
-        # self.frame3.pack(side=tk.LEFT,pady=(300,15), padx=(25,25))
-        # self.text_box = tk.Text(self.frame3, borderwidth=0, highlightthickness=0, wrap="word", width=22, height=15, font=("Calibri", 25))
-        # self.text_box.pack(fill="both", padx=10, pady=10)
-        # self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
-
+        
+        # frame 
+        self.frame = ttk.Frame(canvas, style="Purple.TFrame", padding=10)
+        style = ttk.Style()
+        style.configure("Purple.TFrame", background="purple")
+        self.frame.pack_forget()
+        self.text_box = tk.Text(
+            self.frame,
+            borderwidth=0,
+            highlightthickness=0,
+            wrap="word",
+            width=60,
+            height=35,
+            font=("Calibri", 15),
+            bg="purple",     
+            fg="white",     
+            insertbackground="white"  
+        )
+        self.text_box.pack(fill="both", padx=10, pady=10)
+        self.text_box.tag_configure("bold", font=("Calibri", 15, "bold"))
 
         # Button 1, 2, 3
-        self.button1 = Button(canvas, image=self.img1, command=lambda: self.run_command(0), borderwidth=0)
-        self.button1.place(x=250, y=250) 
-
-        self.button2 = Button(canvas, image=self.img2, command=lambda: self.run_command(1), borderwidth=0)
-        self.button2.place(x=750, y=250) 
-
-        self.button3 = Button(canvas, image=self.img3, command=lambda: self.run_command(2), borderwidth=0)
-        self.button3.place(x=1250, y=250) 
+        self.button = Button(
+            canvas,
+            text="Continue >",          
+            command=self.toggle_interface,
+            borderwidth=0,
+            relief="flat",              
+            bg="white",               
+            fg="black",                
+            font=("Arial", 12)         
+        )
+        self.button.place(x=1450, y=850) 
         
         # text status
         # self.left_frame = ttk.Frame(canvas,style="RoundedFrame", padding=10)
@@ -175,10 +140,6 @@ class Bypass5000App(Frame):
         self.start_terminal(index, "ls")
         # self.start_terminal(index, "echo 'Hello, Terminal!'")
 
-    # def run_initial_commands(self):
-    #     for i in range(3):
-    #         self.run_command(i)
-
 
     def start_terminal(self, index, command):
         def run():
@@ -199,11 +160,74 @@ class Bypass5000App(Frame):
         thread = threading.Thread(target=run, daemon=True)
         thread.start()
 
+    def on_continue_clicked(self):
+        self.frame.pack(side=tk.LEFT,pady=(175,15), padx=(25,0))
+        self.ping_internet()
+
+    def ping_internet(self):
+        def run_ping():
+            target = "google.com"
+            count = 4
+            if self.is_windows:
+                cmd = f"ping -n {count} {target}"
+            else:
+                cmd = f"ping -c {count} {target}"
+            
+            process = subprocess.Popen(cmd, shell=True, 
+                                     stdout=subprocess.PIPE, 
+                                     stderr=subprocess.PIPE,
+                                     universal_newlines=True)
+            
+            while True:
+                output = process.stdout.readline()
+                if output == '' and process.poll() is not None:
+                    break
+                if output:
+                    self.root.after(0, self.update_text_box, output)
+            
+            process.poll()
+        
+        threading.Thread(target=run_ping, daemon=True).start()
+    
+    def update_text_box(self, text):
+        self.text_box.config(state=tk.NORMAL)
+        self.text_box.insert(tk.END, text)
+        self.text_box.see(tk.END)  
+        self.text_box.config(state=tk.DISABLED)
+
+    def toggle_interface(self):
+        # clear current content
+        self.text_box.delete(1.0, tk.END)
+
+        # switch the bg 
+        if self.current_bg == self.bg_images["page1"]:
+            new_bg = self.bg_images["page2"]
+            new_command = "ping 8.8.8.8" 
+        else:
+            new_bg = self.bg_images["page1"]
+            new_command = "ping google.com"
+        
+        # update bg
+        self.update_background(new_bg)
+        self.current_bg = new_bg
+
+        self.execute_command(new_command)
+
+    def update_background(self, image_path):
+        bg_image = Image.open(image_path)
+        bg_image = bg_image.resize((1600, 900), Image.LANCZOS)
+        self.bg_photo = ImageTk.PhotoImage(bg_image)  
+        self.canvas.itemconfig(self.bg_item, image=self.bg_photo)
+    
+    def execute_command(self, command):
+        threading.Thread(target=lambda: self.run_command_in_frame(command), daemon=True).start()
+    
+    def run_command_in_frame(self, command):
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, text=True)
+        for line in iter(process.stdout.readline, ''):
+            self.text_box.insert(tk.END, line)
+            self.text_box.see(tk.END)
+
     def action1(self):
         print("Button 1 clicked!")
     
-    def action2(self):
-        print("Button 2 clicked!")
-
-    def action3(self):
-        print("Button 3 clicked!")
