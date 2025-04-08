@@ -41,6 +41,9 @@ height=1016
 root.geometry("%dx%d" % (width, height))
 root.title("American Portwell Technology | RSAC 2025")
 
+icon = tk.PhotoImage(file="portwell_logo.png")
+root.iconphoto(False, icon)
+
 style = ttk.Style()
 borderImage = tk.PhotoImage("borderImage", file="image.gif")
 

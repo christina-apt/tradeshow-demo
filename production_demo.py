@@ -38,8 +38,8 @@ class ProductionDemo(Frame):
         self.root = master
 
         # resolution
-        width=1600 #root.winfo_screenwidth() 
-        height=900 #root.winfo_screenheight()
+        width=1920 #root.winfo_screenwidth() 
+        height=1016 #root.winfo_screenheight()
         #setting tkinter window size
         self.root.geometry("%dx%d" % (width, height))
         self.root.title("Production Demo")
