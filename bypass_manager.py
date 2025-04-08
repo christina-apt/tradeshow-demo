@@ -5,37 +5,44 @@ from tkinter import Frame
 from bypass_normal import BypassNormal
 from bypass_open import BypassOpen
 from bypass_on import BypassOn
+from bypass_main import BypassMain
 
 class BypassManager(Frame):
     def __init__(self, master):
         self.root = master
         self.current_page = None
-        self.width = 1600
-        self.height = 900
+        self.width = 1920
+        self.height = 1016
 
         self.pages = {
+            "bypass_main": {
+                "class": BypassMain,
+                "bg": "images/bypass1.png",
+                "width": self.width,
+                "height": self.height,
+            },
             "bypass_normal": {
                 "class": BypassNormal,
-                "bg": "background1.jpg",
+                "bg": "images/bypass2.png",
                 "width": self.width,
                 "height": self.height,
             },
             "bypass_open": {
                 "class": BypassOpen,
-                "bg": "background2.jpg",
+                "bg": "images/bypass3.png",
                 "width": self.width,
                 "height": self.height,
             },
             "bypass_on": {
                 "class": BypassOn,
-                "bg": "background3.jpg",
+                "bg": "images/bypass4.png",
                 "width": self.width,
                 "height": self.height,
-            },
+            }
         }
         self.root.title("APT OCP NIC 3.0 Network Test")
         # self.is_windows = platform.system() == 'Linux'
-        self.show_page("bypass_normal") 
+        self.show_page("bypass_main") 
 
         # self.root.mainloop()
 
