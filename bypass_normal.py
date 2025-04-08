@@ -43,15 +43,15 @@ class BypassNormal(Frame):
             borderwidth=0,
             highlightthickness=0,
             wrap="word",
-            width=80,
-            height=25,
+            width=65,
+            height=20,
             font=("Calibri", 15),
             bg="purple",     
             fg="white",     
             insertbackground="white",
             state="normal"
         )
-        self.text_box.pack(fill="both", padx=0, pady=0)
+        self.text_box.pack(fill="both", padx=40, pady=40)
         self.text_box.tag_configure("bold", font=("Calibri", 15, "bold"))
 
         self.button = Button(
@@ -66,7 +66,7 @@ class BypassNormal(Frame):
         )
         self.button.place(x=1450, y=850) 
 
-        self.ping_internet()
+        self.ping_one_to_three()
 
     def jump_to_bypass_open(self):
         self.manager.show_page("bypass_open")
@@ -106,7 +106,69 @@ class BypassNormal(Frame):
             ])
         
         threading.Thread(target=run_ping, daemon=True).start()
+
+    def ping_one_to_three(self):
+        def run_ping():
+            target = "192.168.1.3"
+            count = 4
+            cmd = f"ping -n {count} {target}"
+
+            self.after(0, lambda: [
+                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED)  
+            ])
+            
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+
+            for line in process.stdout:
+                self.after(0, self.update_text_box, line)
+        
+            process.wait()
+            
+            self.after(0, lambda: [
+                self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED)  
+            ])
+        
+        threading.Thread(target=run_ping, daemon=True).start()
     
+    def print_hello(self):
+        def run_hello():
+            cmd = f"echo \"hello\""
+            
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+
+            for line in process.stdout:
+                self.after(0, self.update_text_box, line)
+        
+            process.wait()
+            
+            self.after(0, lambda: [
+                self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED)  
+            ])
+        
+        threading.Thread(target=run_hello, daemon=True).start()
+
     def update_text_box(self, text):
         self.text_box.config(state=tk.NORMAL)  
         self.text_box.insert(tk.END, text)
