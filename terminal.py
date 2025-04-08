@@ -22,9 +22,9 @@ def on_button3_click():
     new_window = Toplevel(root)
     app = OpenBMC(new_window)
 
-def on_button4_click():
-    new_window = Toplevel(root)
-    app = ImageCarousel(new_window, "image-carousel")
+#def on_button4_click():
+#    new_window = Toplevel(root)
+#    app = ImageCarousel(new_window, "image-carousel")
 
 # Create the main window
 root = tk.Tk()
@@ -68,20 +68,20 @@ button2_photo = ImageTk.PhotoImage(button2_image)
 button3_image = Image.open("images/bmc_button.png").resize((350,270))
 button3_photo = ImageTk.PhotoImage(button3_image)
 
-button4_image = Image.open("images/pfr_button.png").resize((350,270))
-button4_photo = ImageTk.PhotoImage(button4_image)
+#button4_image = Image.open("images/pfr_button.png").resize((350,270))
+#button4_photo = ImageTk.PhotoImage(button4_image)
 
 # Create buttons with the images
 button1 = tk.Button(root, image=button1_photo, command=on_button1_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 button2 = tk.Button(root, image=button2_photo, command=on_button2_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 button3 = tk.Button(root, image=button3_photo, command=on_button3_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
-button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
+#button4 = tk.Button(root, image=button4_photo, command=on_button4_click, highlightthickness = 5, bd = 0, activebackground="#CBC3E3", bg='#CBC3E3')
 
 # Place the buttons on the canvas
-canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-550, anchor="center", window=button1)
-canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-550, anchor="center", window=button2)
-canvas.create_window(bg_photo.width()//2 + 200, bg_photo.height()-250, anchor="center", window=button3)
-canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-250, anchor="center", window=button4)
+canvas.create_window(bg_photo.width()//2 + 240, bg_photo.height()-550, anchor="center", window=button1)
+canvas.create_window(bg_photo.width()//2 + 625, bg_photo.height()-550, anchor="center", window=button2)
+canvas.create_window(bg_photo.width()//2 + 432.5, bg_photo.height()-250, anchor="center", window=button3)
+#canvas.create_window(bg_photo.width()//2 + 665, bg_photo.height()-250, anchor="center", window=button4)
 
 # Start the Tkinter event loop
 root.mainloop()
