@@ -14,5 +14,5 @@ class ProductionTest(tk.Frame):
         self.root.iconphoto(False, icon)
 
         bg_image = Image.open(background)
-        bg_image.resize((width,height))
-        bg_photo = ImageTk.PhotoImage(bg_image)
+        resized_bg_image = bg_image.resize((width,height))
+        bg_photo = ImageTk.PhotoImage(resized_bg_image)
