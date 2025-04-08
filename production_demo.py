@@ -59,14 +59,14 @@ class ProductionDemo(Frame):
         canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
         # Title
-        self.text_label = tk.Label(canvas, text="Production Demo", 
-                      font=("Arial", 14, "bold"), 
-                      bg="royalblue", fg="white", 
-                      padx=20, pady=10, 
-                      borderwidth=2, relief="solid")
+        # self.text_label = tk.Label(canvas, text="Production Demo", 
+        #               font=("Arial", 14, "bold"), 
+        #               bg="royalblue", fg="white", 
+        #               padx=20, pady=10, 
+        #               borderwidth=2, relief="solid")
 
-        # Put the Title in the middle
-        self.text_label.pack(pady=20)
+        # # Put the Title in the middle
+        # self.text_label.pack(pady=20)
 
         # frame 
         self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
