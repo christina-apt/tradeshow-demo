@@ -6,7 +6,7 @@ class ProductionTest(tk.Frame):
     def __init__(self, master, background="images/production_bg.png"):
         width=1600 #root.winfo_screenwidth() 
         height=900 #root.winfo_screenheight()
-        #setting tkinter window size
+        #setting tkinter window 
         self.root.geometry("%dx%d" % (width, height))
         self.root.title("Production Test")
 
