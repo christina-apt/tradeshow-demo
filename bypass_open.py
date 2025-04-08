@@ -31,10 +31,13 @@ class BypassOpen(Frame):
         self.canvas.create_image(0, 0, image=bg_photo, anchor="nw")
 
         # frame 
-        self.frame = ttk.Frame(self.canvas, style="Purple.TFrame")
+        self.frame = ttk.Frame(
+            self.canvas, 
+            style="Purple.TFrame"
+        )
         self.canvas.create_window(
-            10,
-            self.height - 10,
+            100,
+            self.height - 70,
             window=self.frame,
             anchor="sw"
         )
@@ -44,27 +47,31 @@ class BypassOpen(Frame):
             borderwidth=0,
             highlightthickness=0,
             wrap="word",
-            width=80,
-            height=25,
+            width=65,
+            height=20,
             font=("Calibri", 15),
             bg="purple",     
             fg="white",     
             insertbackground="white"  
         )
-        self.text_box.pack(fill="both", padx=0, pady=0)
+        self.text_box.pack(fill="both")
         self.text_box.tag_configure("bold", font=("Calibri", 15, "bold"))
 
+        button_image = Image.open("images/continue_button.png").resize((280,90))
+        self.button_image = ImageTk.PhotoImage(button_image) 
         self.button = Button(
             self.canvas,
-            text="Continue >",          
+            # text="Continue >",      
+            image=self.button_image,    
             command=self.jump_to_bypass_on,
             borderwidth=0,
+            highlightthickness=0,
             relief="flat",              
-            bg="white",               
+            bg="#f8fafa",               
             fg="black",                
             font=("Arial", 12)         
         )
-        self.button.place(x=1450, y=850) 
+        self.button.place(x=1580, y=900) 
 
         self.switch_open()
         self.ping_one_to_three()
