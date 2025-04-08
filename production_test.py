@@ -3,7 +3,7 @@ from tkinter import Button, scrolledtext, Menu, PhotoImage, Label, Frame, ttk
 from PIL import Image, ImageTk
 
 class ProductionTest(tk.Frame):
-    def __init__(self, master, background="background1.jpg"):
+    def __init__(self, master, background="images/production_bg.png"):
         width=1600 #root.winfo_screenwidth() 
         height=900 #root.winfo_screenheight()
         #setting tkinter window size
