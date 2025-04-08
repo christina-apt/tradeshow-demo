@@ -12,7 +12,7 @@ from production_demo import ProductionDemo
 
 def on_button1_click():
     new_window = Toplevel(root)
-    app = ProductionDemo(new_window, "background2.jpg")
+    app = ProductionDemo(new_window, "images/production_bg.png")
 
 def on_button2_click():
     new_window = Toplevel(root)
