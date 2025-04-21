@@ -15,23 +15,8 @@ class ProductionDemo(Frame):
     
     def __init__(self, master, background="background1.jpg"):
 
-        self.slot = "0x00"
         with open('./global.json') as f:
             self.globalVariable = json.load(f)
-
-        match background:
-            case "page 2.png":
-                self.globalVariable = self.globalVariable['nic1']
-                self.slot = "0x00"
-                self.fru = "values1.txt"
-            case "page 3.png":
-                self.globalVariable = self.globalVariable['nic2']
-                self.slot = "0x01"
-                self.fru = "values2.txt"
-            case "page 4.png":
-                self.globalVariable = self.globalVariable['nic3']  
-                self.slot = "0x02"
-                self.fru = "values3.txt"     
 
         self.is_windows = platform.system() == 'Windows'
         # Create the main window
@@ -76,9 +61,29 @@ class ProductionDemo(Frame):
         self.text_box.pack(fill="both", padx=10, pady=10)
         self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
 
+        try:            
+            with open("production_test_results.json", "r") as f:
+                self.data = json.load(f)
+        except FileNotFoundError:
+            self.text_box.config(state=tk.NORMAL)
+            self.text_box.delete(1.0, tk.END)
+            self.text_box.insert(tk.END, "Waiting for test results...\n")
+            self.text_box.config(state=tk.DISABLED)
+
+        self.json_results_name = [item["name"] for item in self.data["results"]]
+        self.json_results_result = [item["result"] for item in self.data["results"]]
+        self.json_results_time = [item["time"] for item in self.data["results"]]
+
+        self.text_box.tag_configure("bold", font=("Courier", 12, "bold"))
+        self.text_box.tag_configure("red", foreground="red")
+        self.text_box.tag_configure("green", foreground="green")
+
         # auto update
-        self.root.bind("<FocusIn>", lambda event: self.update_terminal()) 
-        self.update_terminal()
+        #self.root.bind("<FocusIn>", lambda event: self.update_terminal()) 
+        self.start_terminal()
+
+        self.update_terminal(0)
+
         # text status
         # self.left_frame = ttk.Frame(canvas,style="RoundedFrame", padding=10)
         # self.left_frame.pack(side=tk.TOP, anchor="ne", pady=(30,0), padx=(0,40))
@@ -106,42 +111,55 @@ class ProductionDemo(Frame):
 
         # Run the Tkinter event loop
         self.root.mainloop()
+    def start_terminal(self):
+    
+        self.text_box.config(state=tk.NORMAL)
+        self.text_box.delete(1.0, tk.END) 
 
-    def update_terminal(self):
-        print("pass update terminal")
-        try:
-            with open("production_test_results.json", "r") as f:
-                data = json.load(f)
-
-            self.text_box.config(state=tk.NORMAL)
-            self.text_box.delete(1.0, tk.END) 
-
-            for key, value in data["metadata"].items():
+        for key, value in self.data["metadata"].items():
+            if key == "Start Time":
+                now = datetime.now()
+                formatted = now.strftime("%Y/%m/%d %H:%M:%S")
+                self.text_box.insert(tk.END, f"{key}: {formatted}\n", "bold")
+            elif key == "End Time":
+                self.text_box.insert(tk.END, f"{key}: \n", "bold")
+            else:
                 self.text_box.insert(tk.END, f"{key}: {value}\n", "bold")
 
-            self.text_box.tag_configure("blue", foreground="blue")
-            self.text_box.insert(tk.END, "---------------------------------AUTOMATED TEST RESULTS--------------------------------\n")
-            self.text_box.insert(tk.END, "<NAME>                                                     <RESULT>\n", "blue")
-            
-            # show the test result
-            for item in data["results"]:
-                color = "green" if item["result"] == "PASS" else "red"
-                self.text_box.insert(tk.END, f"{item['name']:60} {item['result']}\n", color)
+        self.text_box.tag_configure("blue", foreground="blue")
+        self.text_box.insert(tk.END, "---------------------------------AUTOMATED TEST RESULTS--------------------------------\n")
+        self.text_box.insert(tk.END, "<NAME>                                                     <RESULT>\n", "blue")
+    
+    def update_terminal(self, index):
+        self.text_box.insert(tk.END, f"{self.json_results_name[index]:60} ", "black")
+        self.root.after(self.json_results_time[index] * 1000, lambda: self.print_result(index))
+        #self.root.after(5000, self.update_terminal)
 
-            self.text_box.insert(tk.END, "---------------------------------------------------------------------------------------\n")
-            self.text_box.insert(tk.END, "\nTOTAL RESULT: " + data["total_result"], "red" if data["total_result"] == "FAILED" else "green")
+    def print_result(self, index):
+        if self.json_results_result[index] == "FAIL":
+            color = "red"
+        else:
+            color = "green"
+        self.text_box.insert(tk.END, f"{self.json_results_result[index]}\n", color)
+        if index < len(self.json_results_name) - 1:
+            self.root.after(500, lambda: self.update_terminal(index+1))
+        else:
+            self.end_terminal()
 
-            # set the color
-            self.text_box.tag_configure("bold", font=("Courier", 12, "bold"))
-            self.text_box.tag_configure("red", foreground="red")
-            self.text_box.tag_configure("green", foreground="green")
+    def end_terminal(self):
 
-            self.text_box.config(state=tk.DISABLED)
+        self.text_box.insert(tk.END, "---------------------------------------------------------------------------------------\n")
+        self.text_box.insert(tk.END, "\nTOTAL RESULT: ")
+        self.text_box.insert(tk.END, "FAIL\n", "red")
 
-        except FileNotFoundError:
-            self.text_box.config(state=tk.NORMAL)
-            self.text_box.delete(1.0, tk.END)
-            self.text_box.insert(tk.END, "Waiting for test results...\n")
-            self.text_box.config(state=tk.DISABLED)
+        self.text_box.delete("4.0", "5.0")
+        now = datetime.now()
+        formatted = now.strftime("%Y/%m/%d %H:%M:%S")
+        self.text_box.insert("4.0", f"End Time: {formatted}\n", "bold")
 
-        self.root.after(5000, self.update_terminal)
+        self.text_box.config(state=tk.DISABLED)
+
+
+
+    def delete_all(self):
+        self.text_box.delete("1.0", tk.END)
