@@ -57,7 +57,7 @@ class ProductionDemo(Frame):
         self.frame1 = ttk.Frame(canvas,style="RoundedFrame", padding=10)
         self.frame1.pack(side=tk.LEFT,pady=(200,15), padx=(25,0))
         self.text_box = tk.Text(self.frame1, borderwidth=0, highlightthickness=0, wrap="word",
-                        width=150, height=130, font=("Courier", 12))
+                        width=90, height=130, font=("Courier", 12))
         self.text_box.pack(fill="both", padx=10, pady=10)
         self.text_box.tag_configure("bold", font=("Calibri", 25, "bold"))
 
@@ -101,7 +101,7 @@ class ProductionDemo(Frame):
         # self.button = Button(canvas, text="", command=self.run_save_fru, font=("Calibri", 10))
 
         self.right_frame = ttk.Frame(canvas, style="RoundedFrame")
-        self.right_frame.pack(side=tk.RIGHT,pady=(30,15), padx=(0,40))
+        self.right_frame.pack(side=tk.RIGHT,pady=(200,15), padx=(0,40))
 
         # Create a scrolled text box to display the output
         self.output_label = Label(self.right_frame, text="Test Console", font=("Calibri", 14, "bold"), bg="white")
