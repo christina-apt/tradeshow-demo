@@ -68,6 +68,8 @@ class BypassMain(Frame):
         )
         self.button.place(x=1580, y=900) 
 
+        self.login_ubuntu()
+
         #self.root.mainloop()
 
     def jump_to_bypass_normal(self):
