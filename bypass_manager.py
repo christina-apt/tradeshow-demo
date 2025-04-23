@@ -6,6 +6,7 @@ from bypass_normal import BypassNormal
 from bypass_open import BypassOpen
 from bypass_on import BypassOn
 from bypass_main import BypassMain
+from bypass_off import BypassOff
 
 class BypassManager(Frame):
     def __init__(self, master):
@@ -36,6 +37,12 @@ class BypassManager(Frame):
             "bypass_on": {
                 "class": BypassOn,
                 "bg": "images/bypass4.png",
+                "width": self.width,
+                "height": self.height,
+            },
+            "bypass_off": {
+                "class": BypassOff,
+                "bg": "images/bypass5.png",
                 "width": self.width,
                 "height": self.height,
             }
