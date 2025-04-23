@@ -1,3 +1,5 @@
+import subprocess
+import threading
 import tkinter as tk
 from tkinter import Button, PhotoImage, Label, Frame
 from tkinter import ttk
@@ -70,6 +72,24 @@ class BypassMain(Frame):
 
     def jump_to_bypass_normal(self):
         self.manager.show_page("bypass_normal")
+    
+    def login_ubuntu(self):
+        def login():
+            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/login.py"
+
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+        
+            process.wait()
+        
+        threading.Thread(target=login, daemon=True).start()
 
     # def close_window(self):
     #     self.master.destroy()
