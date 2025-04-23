@@ -16,6 +16,8 @@ class BypassOff(Frame):
         self.manager = manager
         self.bg_photo = None
 
+        self.is_windows = platform.system() == 'Windows'
+
         # self.root.geometry("%dx%d" % (width, height))
 
         # Load the background image

@@ -16,6 +16,8 @@ class BypassOn(Frame):
         self.manager = manager
         self.bg_photo = None
 
+        self.is_windows = platform.system() == 'Windows'
+
         # self.root.geometry("%dx%d" % (width, height))
 
         # Load the background image
@@ -113,7 +115,7 @@ class BypassOn(Frame):
             target = "192.168.1.3"
             source = "192.168.1.1"
             count = 4
-            cmd = f"ping -n {count} -I {source} {target}"
+            cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
@@ -149,7 +151,7 @@ class BypassOn(Frame):
             target = "192.168.1.2"
             source = "192.168.1.1"
             count = 4
-            cmd = f"ping -n {count} -I {source} {target}"
+            cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
