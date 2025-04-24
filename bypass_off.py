@@ -216,6 +216,11 @@ class BypassOff(Frame):
             ])
         
         threading.Thread(target=run_ping, daemon=True).start()
+    
+    def update_text_box(self, text):
+        self.text_box.config(state=tk.NORMAL)  
+        self.text_box.insert(tk.END, text)
+        self.text_box.see(tk.END)
 
     def close_window(self):
         self.master.destroy()
