@@ -75,7 +75,7 @@ class BypassOn(Frame):
         self.button.place(x=1580, y=900) 
 
         self.switch_bypass()
-        self.ping_one_to_three_then_one_to_two()
+        self.after(1000, self.ping_one_to_three_then_one_to_two)
 
         #self.root.mainloop()
     
@@ -101,9 +101,6 @@ class BypassOn(Frame):
                 bufsize=1, 
                 text=True    
             )
-
-            for line in process.stdout:
-                self.after(0, self.update_text_box, line)
         
             process.wait()
         
@@ -153,6 +150,7 @@ class BypassOn(Frame):
             cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
@@ -174,6 +172,7 @@ class BypassOn(Frame):
             process.wait()
             
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED), 

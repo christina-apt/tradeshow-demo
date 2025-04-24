@@ -76,7 +76,7 @@ class BypassOpen(Frame):
         self.button.place(x=1580, y=900) 
 
         self.switch_open()
-        self.ping_one_to_three()
+        self.after(1000, self.ping_one_to_three)
 
     def jump_to_bypass_on(self):
         self.manager.show_page("bypass_on")
@@ -86,6 +86,7 @@ class BypassOpen(Frame):
             cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/open.py"
             
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Changing bypass pair to open mode...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
@@ -116,6 +117,7 @@ class BypassOpen(Frame):
             cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
@@ -137,6 +139,7 @@ class BypassOpen(Frame):
             process.wait()
             
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
