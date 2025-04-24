@@ -74,6 +74,8 @@ class BypassOff(Frame):
         )
         self.button.place(x=1600, y=900) 
 
+        self.switch_offstate_bypass()
+
         #self.root.mainloop()
 
     def switch_offstate_bypass(self):
@@ -81,7 +83,7 @@ class BypassOff(Frame):
             cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/offstate_bypass.py"
             
             self.after(0, lambda: [
-                self.text_box.insert(tk.END, "Changing bypass pair to open mode...\n"),
+                self.text_box.insert(tk.END, "Changing OFFSTATE to bypass mode...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
             ])
@@ -100,6 +102,10 @@ class BypassOff(Frame):
                 self.after(0, self.update_text_box, line)
         
             process.wait()
+
+            self.after(0, lambda: [
+                self.turn_off()
+            ])
         
         threading.Thread(target=offstate_bypass, daemon=True).start()
     
@@ -108,6 +114,7 @@ class BypassOff(Frame):
             cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/turnoff.py"
             
             self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Shutting down PNSR-5000...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
@@ -127,8 +134,88 @@ class BypassOff(Frame):
                 self.after(0, self.update_text_box, line)
         
             process.wait()
+
+            self.after(3000, lambda: [
+                self.ping_one_to_three_then_one_to_two()
+            ])
         
         threading.Thread(target=off, daemon=True).start()
+
+    def ping_one_to_three_then_one_to_two(self):
+        def run_ping():
+           
+            target = "192.168.1.3"
+            source = "192.168.1.1"
+            count = 4
+            cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+
+            self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
+                self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
+                self.text_box.see(tk.END)
+            ])
+            
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+
+            for line in process.stdout:
+                self.after(0, self.update_text_box, line)
+        
+            process.wait()
+            
+            self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
+                self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED), 
+                self.ping_one_to_two()
+            ])
+        
+        threading.Thread(target=run_ping, daemon=True).start()
+
+    def ping_one_to_two(self):
+        def run_ping():
+            target = "192.168.1.2"
+            source = "192.168.1.1"
+            count = 4
+            cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+
+            self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
+                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire and back on pink wire...\n"),
+                self.text_box.see(tk.END) 
+            ])
+            
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+
+            for line in process.stdout:
+                self.after(0, self.update_text_box, line)
+        
+            process.wait()
+            
+            self.after(0, lambda: [
+                self.text_box.config(state=tk.NORMAL),
+                self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED)  
+            ])
+        
+        threading.Thread(target=run_ping, daemon=True).start()
 
     def close_window(self):
         self.master.destroy()
