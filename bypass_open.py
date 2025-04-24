@@ -83,7 +83,7 @@ class BypassOpen(Frame):
     
     def switch_open(self):
         def open():
-            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/bypass_control.py"
+            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/open.py"
             
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "Changing bypass pair to open mode...\n"),
@@ -113,10 +113,10 @@ class BypassOpen(Frame):
             target = "192.168.1.3"
             source = "192.168.1.1"
             count = 4
-            cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+            cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
-                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
+                self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
             ])

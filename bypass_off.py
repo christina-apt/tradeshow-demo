@@ -78,7 +78,7 @@ class BypassOff(Frame):
 
     def switch_offstate_bypass(self):
         def offstate_bypass():
-            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/bypass_control.py"
+            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/offstate_bypass.py"
             
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "Changing bypass pair to open mode...\n"),
@@ -101,7 +101,34 @@ class BypassOff(Frame):
         
             process.wait()
         
-        threading.Thread(target=open, daemon=True).start()
+        threading.Thread(target=offstate_bypass, daemon=True).start()
+    
+    def turn_off(self):
+        def off():
+            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/turnoff.py"
+            
+            self.after(0, lambda: [
+                self.text_box.insert(tk.END, "Shutting down PNSR-5000...\n"),
+                self.text_box.see(tk.END),
+                self.text_box.config(state=tk.DISABLED)  
+            ])
+
+            process = subprocess.Popen(
+                cmd,
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                bufsize=1, 
+                text=True    
+            )
+
+            for line in process.stdout:
+                self.after(0, self.update_text_box, line)
+        
+            process.wait()
+        
+        threading.Thread(target=off, daemon=True).start()
 
     def close_window(self):
         self.master.destroy()

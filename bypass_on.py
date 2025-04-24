@@ -74,18 +74,17 @@ class BypassOn(Frame):
         )
         self.button.place(x=1580, y=900) 
 
-        self.switch_offstate_bypass()
-        self.ping_one_to_three()
-        self.ping_one_to_two()
+        self.switch_bypass()
+        self.ping_one_to_three_then_one_to_two()
 
         #self.root.mainloop()
     
     def jump_to_bypass_off(self):
         self.manager.show_page("bypass_off")
 
-    def switch_offstate_bypass(self):
-        def offstate_bypass():
-            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/bypass_control.py"
+    def switch_bypass(self):
+        def bypass():
+            cmd = f"echo \"111111\" | sudo -S python /home/apt/Documents/test/bypass_on.py"
             
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "Changing bypass pair to bypass mode...\n"),
@@ -108,17 +107,53 @@ class BypassOn(Frame):
         
             process.wait()
         
-        threading.Thread(target=offstate_bypass, daemon=True).start()
+        threading.Thread(target=bypass, daemon=True).start()
 
-    def ping_one_to_three(self):
+    def ping_one_to_three_then_one_to_two(self):
         def run_ping():
+            # def ping_one_to_two(self):
+            #     def run_ping():
+            #         target = "192.168.1.2"
+            #         source = "192.168.1.1"
+            #         count = 4
+            #         cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+
+            #         self.after(0, lambda: [
+            #             self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire and back on pink wire...\n"),
+            #             self.text_box.see(tk.END),
+            #             self.text_box.config(state=tk.DISABLED)  
+            #         ])
+                    
+            #         process = subprocess.Popen(
+            #             cmd,
+            #             shell=True,
+            #             stdout=subprocess.PIPE,
+            #             stderr=subprocess.PIPE,
+            #             universal_newlines=True,
+            #             bufsize=1, 
+            #             text=True    
+            #         )
+
+            #         for line in process.stdout:
+            #             self.after(0, self.update_text_box, line)
+                
+            #         process.wait()
+                    
+            #         self.after(0, lambda: [
+            #             self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
+            #             self.text_box.see(tk.END),
+            #             self.text_box.config(state=tk.DISABLED)  
+            #         ])
+                
+            #     threading.Thread(target=run_ping, daemon=True).start()
+
             target = "192.168.1.3"
             source = "192.168.1.1"
             count = 4
-            cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+            cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
-                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
+                self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
             ])
@@ -141,7 +176,8 @@ class BypassOn(Frame):
             self.after(0, lambda: [
                 self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
                 self.text_box.see(tk.END),
-                self.text_box.config(state=tk.DISABLED)  
+                self.text_box.config(state=tk.DISABLED), 
+                self.ping_one_to_two()
             ])
         
         threading.Thread(target=run_ping, daemon=True).start()
@@ -151,10 +187,10 @@ class BypassOn(Frame):
             target = "192.168.1.2"
             source = "192.168.1.1"
             count = 4
-            cmd = f"ping -n {count} -I {source} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
+            cmd = f"ping -n {count} {target}" if self.is_windows else f"ping -c {count} -I {source} {target}"
 
             self.after(0, lambda: [
-                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire...\n"),
+                self.text_box.insert(tk.END, "Pinging PNSR-5001 on orange wire and back on pink wire...\n"),
                 self.text_box.see(tk.END),
                 self.text_box.config(state=tk.DISABLED)  
             ])
