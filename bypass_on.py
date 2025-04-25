@@ -154,7 +154,7 @@ class BypassOn(Frame):
         
             process.wait()
 
-            self.after(0, lambda: [
+            self.after(5000, lambda: [
                 self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
                 self.text_box.see(tk.END),
