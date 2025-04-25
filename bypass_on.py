@@ -78,7 +78,6 @@ class BypassOn(Frame):
         self.button.place(x=1580, y=900) 
 
         self.switch_bypass()
-        self.after(1000, self.ping_one_to_three_then_one_to_two)
 
         self.process_output()
 
@@ -119,6 +118,8 @@ class BypassOn(Frame):
                 bufsize=1, 
                 text=True    
             )
+
+            self.after(1000, self.ping_one_to_three_then_one_to_two)
         
             process.wait()
         
