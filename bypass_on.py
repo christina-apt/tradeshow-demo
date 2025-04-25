@@ -132,7 +132,7 @@ class BypassOn(Frame):
             )
 
             for line in process.stdout:
-                self.after(0, self.update_text_box, line)
+                self.after(10, self.update_text_box, line)
         
             process.wait()
 
