@@ -135,8 +135,7 @@ class BypassOn(Frame):
             self.after(0, lambda: [
                 self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
-                self.text_box.see(tk.END),
-                self.text_box.config(state=tk.DISABLED)  
+                self.text_box.see(tk.END) 
             ])
             
             process = subprocess.Popen(

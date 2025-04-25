@@ -116,8 +116,7 @@ class BypassOff(Frame):
             self.after(0, lambda: [
                 self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Shutting down PNSR-5000...\n"),
-                self.text_box.see(tk.END),
-                self.text_box.config(state=tk.DISABLED)  
+                self.text_box.see(tk.END)
             ])
 
             process = subprocess.Popen(

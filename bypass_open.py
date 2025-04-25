@@ -1,6 +1,7 @@
 import platform
 import subprocess
 import threading
+import queue
 import tkinter as tk
 from tkinter import Button, PhotoImage, Label, Frame
 from tkinter import ttk
@@ -16,6 +17,8 @@ class BypassOpen(Frame):
         self.background = background
         self.manager = manager
         self.bg_photo = None
+
+        self.output_queue = queue.Queue()
 
         self.is_windows = platform.system() == 'Windows'
 
@@ -78,6 +81,20 @@ class BypassOpen(Frame):
         self.switch_open()
         self.after(1000, self.ping_one_to_three)
 
+        self.process_output()
+    
+    def process_output(self):
+        try:
+            while True:
+                line = self.output_queue.get_nowait()
+                self.text_box.config(state=tk.NORMAL)
+                self.text_box.insert(tk.END, line)
+                self.text_box.see(tk.END)
+                self.text_box.config(state=tk.DISABLED)
+        except queue.Empty:
+            pass
+        self.text_box.after(100, self.process_output)
+
     def jump_to_bypass_on(self):
         self.manager.show_page("bypass_on")
     
@@ -119,8 +136,7 @@ class BypassOpen(Frame):
             self.after(0, lambda: [
                 self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "Pinging PNSR-5000 on orange wire...\n"),
-                self.text_box.see(tk.END),
-                self.text_box.config(state=tk.DISABLED)  
+                self.text_box.see(tk.END) 
             ])
             
             process = subprocess.Popen(
@@ -134,7 +150,7 @@ class BypassOpen(Frame):
             )
 
             for line in process.stdout:
-                self.after(0, self.update_text_box, line)
+                self.output_queue.put(line)
         
             process.wait()
             
