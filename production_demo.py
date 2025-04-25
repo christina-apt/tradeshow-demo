@@ -73,10 +73,20 @@ class ProductionDemo(Frame):
         self.json_results_name = [item["name"] for item in self.data["results"]]
         self.json_results_result = [item["result"] for item in self.data["results"]]
         self.json_results_time = [item["time"] for item in self.data["results"]]
+        self.json_results_message = [item["message"] for item in self.data["results"]]
 
         self.text_box.tag_configure("bold", font=("Courier", 12, "bold"))
         self.text_box.tag_configure("red", foreground="red")
         self.text_box.tag_configure("green", foreground="green")
+
+        self.right_frame = ttk.Frame(canvas, style="RoundedFrame")
+        self.right_frame.pack(side=tk.RIGHT,pady=(200,15), padx=(0,40))
+
+        # Create a scrolled text box to display the output
+        self.output_label = Label(self.right_frame, text="Test Console", font=("Calibri", 14, "bold"), bg="white")
+        self.output_label.pack(anchor="nw", pady=(10,0), padx=(15,5))
+        self.output_text = scrolledtext.ScrolledText(self.right_frame, wrap=tk.WORD, width=103, height=60, bg="black", fg="white")
+        self.output_text.pack(expand=False, padx=(5,10), pady=(5,7))
 
         # auto update
         #self.root.bind("<FocusIn>", lambda event: self.update_terminal()) 
@@ -99,16 +109,7 @@ class ProductionDemo(Frame):
 
         # Create a button to execute command
         # self.button = Button(canvas, text="", command=self.run_save_fru, font=("Calibri", 10))
-
-        self.right_frame = ttk.Frame(canvas, style="RoundedFrame")
-        self.right_frame.pack(side=tk.RIGHT,pady=(200,15), padx=(0,40))
-
-        # Create a scrolled text box to display the output
-        self.output_label = Label(self.right_frame, text="Test Console", font=("Calibri", 14, "bold"), bg="white")
-        self.output_label.pack(anchor="nw", pady=(10,0), padx=(15,5))
-        self.output_text = scrolledtext.ScrolledText(self.right_frame, wrap=tk.WORD, width=103, height=60, bg="black", fg="white")
-        self.output_text.pack(expand=False, padx=(5,10), pady=(5,7))
-
+    
         # Run the Tkinter event loop
         self.root.mainloop()
     def start_terminal(self):
@@ -132,6 +133,7 @@ class ProductionDemo(Frame):
     
     def update_terminal(self, index):
         self.text_box.insert(tk.END, f"{self.json_results_name[index]:60} ", "black")
+        self.output_text.insert(tk.END, f"{self.json_results_message[index]}...\n", "black")
         self.root.after(self.json_results_time[index] * 1000, lambda: self.print_result(index))
         #self.root.after(5000, self.update_terminal)
 
@@ -150,7 +152,7 @@ class ProductionDemo(Frame):
 
         self.text_box.insert(tk.END, "---------------------------------------------------------------------------------------\n")
         self.text_box.insert(tk.END, "\nTOTAL RESULT: ")
-        self.text_box.insert(tk.END, "FAIL\n", "red")
+        self.text_box.insert(tk.END, "PASS\n", "green")
 
         self.text_box.delete("4.0", "5.0")
         now = datetime.now()
