@@ -158,11 +158,10 @@ class BypassOn(Frame):
                 self.text_box.config(state=tk.NORMAL),
                 self.text_box.insert(tk.END, "\n[Ping Completed]\n"),
                 self.text_box.see(tk.END),
-                self.text_box.config(state=tk.DISABLED)
-            ])
-
-            self.after(1000, lambda: [
-                self.ping_one_to_two()
+                self.text_box.config(state=tk.DISABLED),
+                self.after(1000, lambda: [
+                    self.ping_one_to_two()
+                ])
             ])
         
         threading.Thread(target=run_ping, daemon=True).start()
