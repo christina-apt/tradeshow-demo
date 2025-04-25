@@ -135,7 +135,7 @@ class BypassOff(Frame):
         
             process.wait()
 
-            self.after(5000, lambda: [
+            self.after(8000, lambda: [
                 self.ping_one_to_three_then_one_to_two()
             ])
         
