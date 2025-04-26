@@ -7,6 +7,7 @@ from tkinter import Button, scrolledtext, Menu, PhotoImage, Label, Frame, ttk
 from PIL import Image, ImageTk
 import subprocess
 import threading
+import time
 from datetime import datetime
 from tabulate import tabulate
 import json
@@ -133,6 +134,9 @@ class ProductionDemo(Frame):
     
     def update_terminal(self, index):
         self.text_box.insert(tk.END, f"{self.json_results_name[index]:60} ", "black")
+        if self.json_results_name[index] == "RS232 J9" and not self.is_windows:
+            loopbackresult = self.run_loopback_test_with_socat()
+            self.json_results_result[index] = loopbackresult
         self.output_text.insert(tk.END, f"{self.json_results_message[index]}...\n", "black")
         self.root.after(self.json_results_time[index] * 1000, lambda: self.print_result(index))
         #self.root.after(5000, self.update_terminal)
@@ -160,6 +164,18 @@ class ProductionDemo(Frame):
         self.text_box.insert("4.0", f"End Time: {formatted}\n", "bold")
 
         self.text_box.config(state=tk.DISABLED)
+
+    def run_loopback_test_with_socat(port='/dev/ttyS0', test_data='TEST1234\n'):
+        cmd = f'echo -n "{test_data}" | socat - {port},raw,echo=0,b{9600}'
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        output = result.stdout.decode()
+        print(f"Output: {output.strip()}")
+        
+        if test_data.strip() in output:
+            return "PASS"
+        else:
+            return "FAIL"
 
 
 
