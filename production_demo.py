@@ -144,8 +144,10 @@ class ProductionDemo(Frame):
     def print_result(self, index):
         if self.json_results_result[index] == "FAIL":
             color = "red"
-        else:
+        elif self.json_results_result[index] == "PASS":
             color = "green"
+        else:
+            color = "black"
         self.text_box.insert(tk.END, f"{self.json_results_result[index]}\n", color)
         if index < len(self.json_results_name) - 1:
             self.root.after(500, lambda: self.update_terminal(index+1))
